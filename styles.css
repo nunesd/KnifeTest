@@ -1,0 +1,14 @@
+body {
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
