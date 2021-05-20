@@ -25,6 +25,8 @@ function gotResults(error, result) {
     console.error(error);
   } else {
     const danger = result.find((item) => item.label === "danger");
+    const labelHTML = document.querySelector("H1");
+
     label =
       danger.confidence <= 0.4
         ? "Tudo tranquilo!"
@@ -32,13 +34,22 @@ function gotResults(error, result) {
         ? "Fique Alerta!"
         : "PERIGOOOOOO!!!";
 
-    document.querySelector("H1").textContent = label;
+    if (danger.confidence > 0.7) {
+      label = "Ameaça detectada!!";
+      labelHTML.textContent = label;
+      if (!labelHTML.className.includes("danger")) {
+        labelHTML.classList.add("danger");
+      }
+    } else {
+      labelHTML.classList.remove("danger");
+    }
+
     classifier.classify(gotResults);
   }
 }
 
 function setup() {
-  createCanvas(320, 270);
+  createCanvas(700, 550);
   video = createCapture(VIDEO);
   video.hide();
   background(0);
@@ -48,5 +59,5 @@ function setup() {
 
 function draw() {
   background(0);
-  image(video, 0, 0, 320, 270);
+  image(video, 0, 0, 700, 550);
 }

@@ -1,7 +1,12 @@
 body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column-reverse;
+  background-color: #282c34;
 }
 
 main {
@@ -11,4 +16,10 @@ main {
 
 h1 {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  height: 43px;
+}
+
+h1.danger {
+  color: crimson;
 }
