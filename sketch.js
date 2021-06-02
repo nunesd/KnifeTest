@@ -26,22 +26,11 @@ function gotResults(error, result) {
   } else {
     const danger = result.find((item) => item.label === "danger");
     const labelHTML = document.querySelector("H1");
-
-    label =
-      danger.confidence <= 0.4
-        ? "Tudo tranquilo!"
-        : danger.confidence > 0.4 && danger.confidence <= 0.7
-        ? "Fique Alerta!"
-        : "PERIGOOOOOO!!!";
+    labelHTML.textContent = "";
 
     if (danger.confidence > 0.7) {
       label = "Ameaça detectada!!";
       labelHTML.textContent = label;
-      if (!labelHTML.className.includes("danger")) {
-        labelHTML.classList.add("danger");
-      }
-    } else {
-      labelHTML.classList.remove("danger");
     }
 
     classifier.classify(gotResults);
@@ -53,7 +42,11 @@ function setup() {
   video = createCapture(VIDEO);
   video.hide();
   background(0);
-  mobilenet = ml5.featureExtractor("MobileNet", modelReady);
+
+  mobilenet = ml5.featureExtractor("MobileNet", () => {
+    classifier.load("model.json", customModelReady);
+  });
+
   classifier = mobilenet.classification(video, videoReady);
 }
 
